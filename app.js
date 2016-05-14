@@ -17,7 +17,15 @@ var conn = mysql.createConnection({
    port:3306
   
 });
-conn.connect();
+//Handling err casued by wrong password
+
+conn.connect(function(err){
+if (err){
+    console.log('connecting to DB failed ::'+err);
+    setTimeout(handleError, 2000);        
+    } 
+
+});
 var insertSQL = 'insert into t_user(name) values ("conan"),("fens.me")';
 var selectSQL = 'select *  from t_user limit 10';
 var deleteSQL = 'delete from t_user';
